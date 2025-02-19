@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>船舶计划数据</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .filter-container, .upload-container, .compare-container {
+            margin-bottom: 20px;
+        }
+        .filter-container input, .filter-container select {
+            margin-right: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>船舶计划数据</h1>
+    <div class="filter-container">
+        <input type="text" id="filter-vslName" placeholder="按中文船名筛选">
+        <input type="text" id="filter-vslNameEn" placeholder="按英文船名筛选">
+        <select id="filter-scheduleType">
+            <option value="">全部计划类型</option>
+            <option value="I">I</option>
+            <option value="E">E</option>
+            <option value="M">M</option>
+        </select>
+        <button onclick="applyFilters()">筛选</button>
+        <button onclick="clearFilters()">清除筛选</button>
+    </div>
+    <div class="upload-container">
+        <h2>上传比对表格</h2>
+        <input type="file" id="upload-file" accept=".csv">
+        <button onclick="handleUpload()">上传</button>
+    </div>
+    <div class="uploaded-table-container">
+        <h2>上传的表格数据</h2>
+        <table id="uploaded-table">
+            <thead>
+                <tr>
+                    <th>英文船名</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 上传的表格数据将动态插入到这里 -->
+            </tbody>
+        </table>
+    </div>
+    <div class="compare-container">
+        <button onclick="compareData()">比对数据</button>
+    </div>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>计划类型</th>
+                <th>中文船名</th>
+                <th>英文船名</th>
+                <th>船籍</th>
+                <th>靠泊泊位</th>
+                <th>靠泊日期时间</th>
+                <th>离泊位</th>
+                <th>离泊日期时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 数据将动态插入到这里 -->
+        </tbody>
+    </table>
+
+    <script>
+        let allData = []; // 存储所有数据
+        let uploadedData = []; // 存储用户上传的表格数据
+
+        // 从后端获取数据并渲染表格
+        async function fetchData() {
+            try {
+                const response = await fetch("/api/data");
+                allData = await response.json();
+                renderTable(allData); // 渲染表格
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        // 渲染表格
+        function renderTable(data) {
+            const tbody = document.querySelector("#data-table tbody");
+            tbody.innerHTML = ""; // 清空现有数据
+
+            data.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.scheduleTypeDesc}</td>
+                    <td>${item.vslName}</td>
+                    <td>${item.vslNameEn}</td>
+                    <td>${item.vslVesselNationalityName}</td>
+                    <td>${item.dockBerthName}</td>
+                    <td>${item.dockTimeD}</td>
+                    <td>${item.leaveBerthName}</td>
+                    <td>${item.leaveBerthTimeD}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 应用筛选
+        function applyFilters() {
+            const vslName = document.getElementById("filter-vslName").value.toLowerCase();
+            const vslNameEn = document.getElementById("filter-vslNameEn").value.toLowerCase();
+            const scheduleType = document.getElementById("filter-scheduleType").value;
+
+            const filteredData = allData.filter(item => {
+                return (
+                    (vslName === "" || item.vslName.toLowerCase().includes(vslName)) &&
+                    (vslNameEn === "" || item.vslNameEn.toLowerCase().includes(vslNameEn)) &&
+                    (scheduleType === "" || item.scheduleTypeDesc === scheduleType)
+                );
+            });
+
+            renderTable(filteredData); // 渲染筛选后的数据
+        }
+
+        // 清除筛选
+        function clearFilters() {
+            document.getElementById("filter-vslName").value = "";
+            document.getElementById("filter-vslNameEn").value = "";
+            document.getElementById("filter-scheduleType").value = "";
+            renderTable(allData); // 渲染所有数据
+        }
+
+        // 比对数据
+        function compareData() {
+            if (uploadedData.length === 0) {
+                alert("请先上传比对表格！");
+                return;
+            }
+
+            const filteredData = allData.filter(item => {
+                return uploadedData.includes(item.vslNameEn); // 比对英文船名
+            });
+
+            renderTable(filteredData); // 渲染比对后的数据
+        }
+
+        // 页面加载时获取数据
+        fetchData();
+
+        // 每 10 分钟刷新一次数据
+        setInterval(fetchData, 10 * 60 * 1000);
+    </script>
+</body>
+</html>
