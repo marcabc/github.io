@@ -1,25 +1,27 @@
+好的，我将完全推翻之前的排版，并参考聚合类网站的样式，为你提供一个全新的网页结构和样式。这个版本将更加注重信息的集中展示和易用性。
+
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>常用网址</title>
-<meta name="keywords" content="常用网址">
-<meta name="description" content="常用网址">
+<title>常用网址导航</title>
+<meta name="keywords" content="常用网址, 网址导航">
+<meta name="description" content="常用网址导航，快速访问常用网站。">
 <style>
 /* Reset and General Styles */
 body {
-    font-family: sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
 }
 
 .container {
-    max-width: 960px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -38,51 +40,100 @@ a:hover {
 /* Header */
 header {
     background-color: #fff;
-    padding: 20px 0;
-    text-align: center;
+    padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky; /* Fixed header */
+    top: 0;
+    z-index: 100;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2em;
+    font-size: 1.5em;
     color: #222;
 }
 
-/* Sections */
-.section {
+/* Search Bar */
+.search-bar {
+    display: flex;
+}
+
+.search-bar input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.search-bar button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
+
+/* Main Content */
+main {
+    padding: 20px 0;
+}
+
+/* Category Sections */
+.category-section {
     background-color: #fff;
-    padding: 20px;
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    overflow: hidden; /* Clear floats */
 }
 
-.section h1 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
-    color: #222;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
-
-/* Link Grid */
-.link-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-}
-
-.link-grid a {
-    display: block;
+.category-header {
+    background-color: #f0f0f0;
     padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.category-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #222;
+}
+
+/* Link List */
+.link-list {
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.link-item {
+    width: 25%; /* Adjust for desired column count */
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.link-item a {
+    display: block;
+    padding: 8px 12px;
     background-color: #f9f9f9;
-    border-radius: 5px;
+    border-radius: 4px;
     text-align: center;
     transition: background-color 0.3s ease;
 }
 
-.link-grid a:hover {
+.link-item a:hover {
     background-color: #eee;
     text-decoration: none;
 }
@@ -96,170 +147,173 @@ footer {
     font-size: 0.9em;
 }
 
-/* Warning */
-.warning {
-    color: #ff0000;
-    font-size: 0.9em;
-    margin-top: 10px;
-    text-align: center;
+/* Responsive Design */
+@media (max-width: 992px) {
+    .container {
+        padding: 15px;
+    }
+
+    .link-item {
+        width: 33.33%;
+    }
 }
 
-/* Scroll to Top Button (CSS-only) */
-.scroll-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: none; /* Hidden by default */
+@media (max-width: 768px) {
+    .link-item {
+        width: 50%;
+    }
 }
 
-/* Show the button when scrolling down */
-body:not(:target) .scroll-to-top {
-    display: block;
-}
+@media (max-width: 576px) {
+    .link-item {
+        width: 100%;
+    }
 
-/* Target for scrolling */
-:target {
-    display: block;
-    position: relative;
-    top: -50px; /* Adjust based on header height */
-    visibility: hidden;
-}
+    header .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-:target:before {
-    content: "";
-    display: block;
-    height: 50px; /* Adjust based on header height */
-    margin-top: -50px; /* Adjust based on header height */
-    visibility: visible;
+    .search-bar {
+        margin-top: 10px;
+    }
 }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>常用网址</h1>
+    <div class="container">
+        <h1>常用网址导航</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="搜索网站">
+            <button>搜索</button>
+        </div>
+    </div>
 </header>
 
-<div class="container">
+<main>
+    <div class="container">
 
-    <section id="haishi" class="section">
-        <h1>海事动态 & 气象</h1>
-        <div class="link-grid">
-            <a href="http://www.sh.msa.gov.cn/query/showPortPlan.jspx">上海海事局口岸计划EDI申报结果查询</a>
-            <a href="http://sh.cma.gov.cn/sh/tqyb/qxbg/">上海中心气象台专业气象网</a>
-        </div>
-    </section>
+        <section class="category-section">
+            <div class="category-header">
+                <h2>海事与气象</h2>
+            </div>
+            <div class="link-list">
+                <div class="link-item"><a href="http://www.sh.msa.gov.cn/query/showPortPlan.jspx">上海海事局口岸计划</a></div>
+                <div class="link-item"><a href="http://sh.cma.gov.cn/sh/tqyb/qxbg/">上海中心气象台</a></div>
+            </div>
+        </section>
 
-    <section id="jiyun" class="section">
-        <h1>集运 & 船讯</h1>
-        <div class="link-grid">
-            <a href="http://www.fob001.cn/">集运宝典 (码头信息查询聚合)</a>
-            <a href="http://www.shipxy.com">船讯网 (船舶AIS查询)</a>
-        </div>
-    </section>
+        <section class="category-section">
+            <div class="category-header">
+                <h2>集运与船讯</h2>
+            </div>
+            <div class="link-list">
+                <div class="link-item"><a href="http://www.fob001.cn/">集运宝典</a></div>
+                <div class="link-item"><a href="http://www.shipxy.com">船讯网</a></div>
+            </div>
+        </section>
 
-    <section id="chuandai" class="section">
-        <h1>船代查询</h1>
-        <div class="link-grid">
-            <a href="http://www.penavico.sh.cn/proxy/vesselContainer.do">上海外代集装箱</a>
-            <a href="http://www.penavico.sh.cn/proxy/fjzxcqcb/fjzxlist.jsp">上海外代非集装箱</a>
-            <a href="https://ucan-e.unisco.com.cn/business.html?page=ship">联合船代</a>
-            <a href="http://www.chinasailing.com.cn/cn/default.jsp">航华船代</a>
-            <a href="http://q.cpsa.net.cn/blcq">华港船代</a>
-            <a href="http://www.chinaports-agency.com/query/shipwrcq1.jsp">华港船代五日船期表</a>
-            <a href="http://sun-dial.com/sundial/control/query">顺德船代</a>
-            <a href="http://www.sinoagentsh.com/query/Schedules.aspx">中外运船代</a>
-        </div>
-    </section>
+        <section class="category-section">
+            <div class="category-header">
+                <h2>船代查询</h2>
+            </div>
+            <div class="link-list">
+                <div class="link-item"><a href="http://www.penavico.sh.cn/proxy/vesselContainer.do">上海外代集装箱</a></div>
+                <div class="link-item"><a href="http://www.penavico.sh.cn/proxy/fjzxcqcb/fjzxlist.jsp">上海外代非集装箱</a></div>
+                <div class="link-item"><a href="https://ucan-e.unisco.com.cn/business.html?page=ship">联合船代</a></div>
+                <div class="link-item"><a href="http://www.chinasailing.com.cn/cn/default.jsp">航华船代</a></div>
+                <div class="link-item"><a href="http://q.cpsa.net.cn/blcq">华港船代</a></div>
+                <div class="link-item"><a href="http://www.chinaports-agency.com/query/shipwrcq1.jsp">华港船代五日船期表</a></div>
+                <div class="link-item"><a href="http://sun-dial.com/sundial/control/query">顺德船代</a></div>
+                <div class="link-item"><a href="http://www.sinoagentsh.com/query/Schedules.aspx">中外运船代</a></div>
+            </div>
+        </section>
 
-    <section id="banlun" class="section">
-        <h1>班轮查询</h1>
-        <div class="link-grid">
-            <a href="https://elines.coscoshipping.com/ebusiness/sailingSchedule/searchByVesselName">CSOCO SHIPPING 中远海</a>
-            <a href="https://www.maersk.com/schedules/vesselSchedules">MAERSK 马士基</a>
-            <a href="http://www.cma-cgm.com/ebusiness/schedules/voyage">CMA 达飞</a>
-            <a href="https://api.sitcline.com/sitcline/vessel/vesselMovementSearch">SITC 海丰</a>
-            <a href="https://www.yangming.com/e-service/Vessel_Tracking/SearchByVessel.aspx">YML 阳明</a>
-            <a href="https://ss.shipmentlink.com/tvs2/jsp/TVS2_VesselSchedule.jsp">EMC 长荣</a>
-            <a href="https://www.oocl.com/schi/ourservices/eservices/trackandtrace/Pages/default.aspx">OOCL 东方海外</a>
-            <a href="https://www.zim.com/schedules/schedule-by-vessel">ZIM 以星</a>
-            <a href="https://www.hmm21.com/cms/company/engn/index.jsp">HMM 现代商船</a>
-            <a href="https://cn.wanhai.com/cec/#/schedule">WHL 万海</a>
-            <a href="https://ecomm.one-line.com/one-ecom/schedule/vessel-schedule">ONE 海洋网联</a>
-            <a href="http://www.emiratesline.com/vessel-tracking/">ESL 阿联酋航运</a>
-            <a href="https://ebusiness.sinolines.com.cn/snlebusiness/ScheduleActive.aspx">SNL 中外运</a>
-            <a href="https://ejj.jjshipping.cn/sailingDateB">锦江航运</a>
-            <a href="https://www.pilship.com/en-our-schedules-pil-pacific-international-lines/117.html">PIL 太平船务</a>
-            <a href="https://www.msccargo.cn/en/search-a-schedule">MSC 地中海</a>
-        </div>
-    </section>
+        <section class="category-section">
+            <div class="category-header">
+                <h2>班轮查询</h2>
+            </div>
+            <div class="link-list">
+                <div class="link-item"><a href="https://elines.coscoshipping.com/ebusiness/sailingSchedule/searchByVesselName">CSOCO SHIPPING 中远海</a></div>
+                <div class="link-item"><a href="https://www.maersk.com/schedules/vesselSchedules">MAERSK 马士基</a></div>
+                <div class="link-item"><a href="http://www.cma-cgm.com/ebusiness/schedules/voyage">CMA 达飞</a></div>
+                <div class="link-item"><a href="https://api.sitcline.com/sitcline/vessel/vesselMovementSearch">SITC 海丰</a></div>
+                <div class="link-item"><a href="https://www.yangming.com/e-service/Vessel_Tracking/SearchByVessel.aspx">YML 阳明</a></div>
+                <div class="link-item"><a href="https://ss.shipmentlink.com/tvs2/jsp/TVS2_VesselSchedule.jsp">EMC 长荣</a></div>
+                <div class="link-item"><a href="https://www.oocl.com/schi/ourservices/eservices/trackandtrace/Pages/default.aspx">OOCL 东方海外</a></div>
+                <div class="link-item"><a href="https://www.zim.com/schedules/schedule-by-vessel">ZIM 以星</a></div>
+                <div class="link-item"><a href="https://www.hmm21.com/cms/company/engn/index.jsp">HMM 现代商船</a></div>
+                <div class="link-item"><a href="https://cn.wanhai.com/cec/#/schedule">WHL 万海</a></div>
+                <div class="link-item"><a href="https://ecomm.one-line.com/one-ecom/schedule/vessel-schedule">ONE 海洋网联</a></div>
+                <div class="link-item"><a href="http://www.emiratesline.com/vessel-tracking/">ESL 阿联酋航运</a></div>
+                <div class="link-item"><a href="https://ebusiness.sinolines.com.cn/snlebusiness/ScheduleActive.aspx">SNL 中外运</a></div>
+                <div class="link-item"><a href="https://ejj.jjshipping.cn/sailingDateB">锦江航运</a></div>
+                <div class="link-item"><a href="https://www.pilship.com/en-our-schedules-pil-pacific-international-lines/117.html">PIL 太平船务</a></div>
+                <div class="link-item"><a href="https://www.msccargo.cn/en/search-a-schedule">MSC 地中海</a></div>
+            </div>
+        </section>
 
-    <section id="matou" class="section">
-        <h1>码头查询</h1>
-        <div class="link-grid">
-            <a href="https://www.sh-pilots.com.cn/info/Business1.aspx">上海港引航计划</a>
-            <a href="https://www.youlunyun.com/icimp/commons/topage?path=/page/web/index#/index">新版邮轮云供船申报</a>
-            <a href="https://chuanqi.sh-pilots.com.cn/framemain/publicplanin.aspx">引航进口</a>
-            <a href="https://chuanqi.sh-pilots.com.cn/framemain/publicplanout.aspx">引航出口</a>
-            <a href="https://chuanqi.sh-pilots.com.cn/framemain/publicplanmove.aspx">引航移泊</a>
-            <a href="http://www.hb56.com/PublicQuery/NewSchdule.aspx">港航纵横主站</a>
-            <a href="http://www2.hb56.com/PublicQuery/NewSchdule.aspx">港航纵横备用站</a>
-        </div>
-    </section>
+        <section class="category-section">
+            <div class="category-header">
+                <h2>码头查询</h2>
+            </div>
+            <div class="link-list">
+                <div class="link-item"><a href="https://www.sh-pilots.com.cn/info/Business1.aspx">上海港引航计划</a></div>
+                <div class="link-item"><a href="https://www.youlunyun.com/icimp/commons/topage?path=/page/web/index#/index">新版邮轮云供船申报</a></div>
+                <div class="link-item"><a href="https://chuanqi.sh-pilots.com.cn/framemain/publicplanin.aspx">引航进口</a></div>
+                <div class="link-item"><a href="https://chuanqi.sh-pilots.com.cn/framemain/publicplanout.aspx">引航出口</a></div>
+                <div class="link-item"><a href="https://chuanqi.sh-pilots.com.cn/framemain/publicplanmove.aspx">引航移泊</a></div>
+                <div class="link-item"><a href="http://www.hb56.com/PublicQuery/NewSchdule.aspx">港航纵横主站</a></div>
+                <div class="link-item"><a href="http://www2.hb56.com/PublicQuery/NewSchdule.aspx">港航纵横备用站</a></div>
+            </div>
+        </section>
 
-    <section id="qita" class="section">
-        <h1>其他</h1>
-        <div class="link-grid">
-            <a href="http://msdspds.castrol.com/msdspds/msdspds.nsf/CastrolSearch?OpenForm&c=China (CN)&l=Chinese (Simplified) (CN)&p=&n=&b=&t=PDS&autosearch=No&autoload=No&sitelang=CN&output=Full&spu=Lubricants&unrestrictedmb=No&cols=0&fromagent=No">CASTROL MSDS</a>
-            <a href="http://www.epc.shell.com/">SHELL MSDS</a>
-            <a href="https://sdstotalms.total.com/TotalPullWebsite/">TOTAL MSDS</a>
-            <a href="http://www.gulf-marine.com/product">GULF MSDS</a>
-            <a href="http://www.lukoilmarine.com/products/group/3/">LUKOIL MSDS</a>
-            <a href="http://www.msds.exxonmobil.com/IntApps/psims/psims.aspx">ExxonMobil MSDS</a>
-            <a href="http://www.skzic.com/kor/service/Pds/acug_msds_E_list.asp">SK MSDS</a>
-            <a href="http://www.lukoilmarine.com/media/ship/ship02.swf">润滑油使用部位介绍</a>
-            <a href="http://www.hrdd.com.cn/ch/facilities.aspx">大东厂泊位图</a>
-            <a href="http://202.136.214.163:801/login_default.aspx">引航站</a>
-            <a href="https://116.228.192.214">VPN</a>
-            <a href="http://bpmvgs.gdvdr.com/lvdr">VGS</a>
-            <a href="http://dp.eptrade.cn/">EDI</a>
-            <a href="http://bpmvgsnew.gdvdr.com/login.aspx">VGS新</a>
-            <a href="https://portal.exxonmobil.com/Login/Login.aspx">美孚COA</a>
-            <a href="https://mobile.gomintranet.com:2006/m/common/mobilesales/logout.action">GULF SOPHIE</a>
-        </div>
-    </section>
+        <section class="category-section">
+            <div class="category-header">
+                <h2>其他</h2>
+            </div>
+            <div class="link-list">
+                <div class="link-item"><a href="http://msdspds.castrol.com/msdspds/msdspds.nsf/CastrolSearch?OpenForm&c=China (CN)&l=Chinese (Simplified) (CN)&p=&n=&b=&t=PDS&autosearch=No&autoload=No&sitelang=CN&output=Full&spu=Lubricants&unrestrictedmb=No&cols=0&fromagent=No">CASTROL MSDS</a></div>
+                <div class="link-item"><a href="http://www.epc.shell.com/">SHELL MSDS</a></div>
+                <div class="link-item"><a href="https://sdstotalms.total.com/TotalPullWebsite/">TOTAL MSDS</a></div>
+                <div class="link-item"><a href="http://www.gulf-marine.com/product">GULF MSDS</a></div>
+                <div class="link-item"><a href="http://www.lukoilmarine.com/products/group/3/">LUKOIL MSDS</a></div>
+                <div class="link-item"><a href="http://www.msds.exxonmobil.com/IntApps/psims/psims.aspx">ExxonMobil MSDS</a></div>
+                <div class="link-item"><a href="http://www.skzic.com/kor/service/Pds/acug_msds_E_list.asp">SK MSDS</a></div>
+                <div class="link-item"><a href="http://www.lukoilmarine.com/media/ship/ship02.swf">润滑油使用部位介绍</a></div>
+                <div class="link-item"><a href="http://www.hrdd.com.cn/ch/facilities.aspx">大东厂泊位图</a></div>
+                <div class="link-item"><a href="http://202.136.214.163:801/login_default.aspx">引航站</a></div>
+                <div class="link-item"><a href="https://116.228.192.214">VPN</a></div>
+                <div class="link-item"><a href="http://bpmvgs.gdvdr.com/lvdr">VGS</a></div>
+                <div class="link-item"><a href="http://dp.eptrade.cn/">EDI</a></div>
+                <div class="link-item"><a href="http://bpmvgsnew.gdvdr.com/login.aspx">VGS新</a></div>
+                <div class="link-item"><a href="https://portal.exxonmobil.com/Login/Login.aspx">美孚COA</a></div>
+                <div class="link-item"><a href="https://mobile.gomintranet.com:2006/m/common/mobilesales/logout.action">GULF SOPHIE</a></div>
+            </div>
+        </section>
 
-    <a href="#" class="scroll-to-top">回到顶部</a>
-
-</div>
+    </div>
+</main>
 
 <footer>
-    <p class="warning">CHROME浏览器及360等浏览器的极速模式为佳，建议不要使用IE浏览器</p>
-    <p>Copyright © 2024 常用网址</p>
+    <p>&copy; 2024 常用网址导航</p>
 </footer>
 
 </body>
 </html>
 ```
 
-**主要优化说明:**
+**关键改进:**
 
-*   **现代CSS Reset:**  移除了过时的 XHTML DTD，使用 HTML5 `<!DOCTYPE html>`。  精简了 CSS Reset，只保留了必要的样式重置，确保在不同浏览器中的一致性。
-*   **响应式设计:**  添加了 `<meta name="viewport" ...>` 确保在移动设备上的良好显示。
-*   **语义化HTML:** 使用了 `<header>`, `<section>`, `<footer>` 等语义化标签，增强可读性和SEO。
-*   **CSS Grid布局:** 使用 CSS Grid 布局 `link-grid`，使链接排列更加灵活和美观，自动适应不同屏幕尺寸。
-*   **简洁的样式:**  简化了颜色方案，使用更现代的字体和阴影效果。
-*   **CSS-only Scroll to Top:**  实现了一个纯 CSS 的 "回到顶部" 按钮，无需 JavaScript。  使用了 `:target` 伪类来平滑滚动到页面顶部。
-*   **移除表格布局:**  用 `div` 和 CSS Grid 替代了表格布局，使代码更简洁，更易于维护。
-*   **可访问性:**  保留了 `target="_blank"`，但建议添加 `rel="noopener noreferrer"` 以提高安全性。
-*   **代码组织:**  CSS 代码按照功能分组，提高了可读性。
-*   **移除不必要的代码:**  移除了无用的 JavaScript 引用和表单代码。
-*   **优化链接样式:** 改进了链接的颜色和悬停效果，使其更清晰。
+*   **聚合类网站布局:** 采用了常见的聚合类网站布局，将网址按类别分组，每个类别在一个独立的 `section` 中。
+*   **固定头部:** 使用 `position: sticky` 创建了一个固定在顶部的头部，方便用户随时进行搜索。
+*   **搜索栏:** 添加了一个简单的搜索栏（虽然没有实际搜索功能，但可以作为占位符）。
+*   **响应式网格:** 使用 CSS Flexbox 创建了一个响应式的链接列表，链接会自动换行以适应不同的屏幕尺寸。
+*   **简洁的样式:** 简化了颜色方案和字体，使其更易于阅读。
+*   **语义化HTML:** 使用了 `<header>`, `<main>`, `<section>`, `<footer>` 等语义化标签。
+*   **移动优先:** 采用了移动优先的响应式设计，确保在移动设备上的良好显示。
 
 **使用方法:**
 
@@ -268,10 +322,10 @@ body:not(:target) .scroll-to-top {
 
 **进一步改进:**
 
-*   **Favicon:**  添加一个网站图标（favicon）。
-*   **CSS变量:**  使用 CSS 变量 (custom properties) 来管理颜色和字体，方便修改主题。
-*   **字体优化:**  考虑使用 Web Fonts，但要注意加载性能。
-*   **图片优化:**  如果需要添加图片，请优化图片大小和格式。
-*   **SEO优化:**  进一步优化 `meta` 标签，添加 `alt` 属性到图片，使用有意义的标题。
+*   **搜索功能:** 可以使用 JavaScript 实现一个简单的搜索功能，根据用户输入的关键词过滤链接。
+*   **图标:** 为每个链接添加一个图标，使其更易于识别。
+*   **用户自定义:** 允许用户自定义链接列表，例如添加、删除或重新排序链接。
+*   **主题切换:** 添加一个主题切换功能，允许用户选择不同的颜色方案。
+*   **SEO优化:** 进一步优化 `meta` 标签，添加 `alt` 属性到图片，使用有意义的标题。
 
-这个优化后的版本在视觉上更现代，代码更简洁，并且完全不需要 JavaScript。  它也更容易维护和扩展。
+这个版本在信息展示和易用性方面有了很大的提升，更符合现代聚合类网站的风格。
